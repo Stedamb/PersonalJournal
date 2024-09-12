@@ -1,0 +1,30 @@
+@import url(./components/cursor.css);
+@import url(./components/loader.css);
+
+@import url(./index.css);
+@import url(./container.css);
+@import url(./multimedia.css);
+@import url(./typography.css);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --text: #050315;
+    --background: #fbfbfe;
+    --primary: #2f27ce;
+    --secondary: #dedcff;
+    --accent: #433bff;
+    --radius: 0.5rem
+  }
+  .dark {
+    --text: #ebe9fc;
+    --background: #010104;
+    --primary: #3a31d8;
+    --secondary: #020024;
+    --accent: #0600c2;
+  }
+}
+

@@ -1,0 +1,77 @@
+@import url(./fonts.css);
+
+body {
+    font-family: 'Courier Prime';
+    font-weight: 500;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'MS Mincho';
+    font-weight: 700;
+}
+
+html {font-size: 14px !important;}
+
+@media screen and (min-width: 768px) {
+    html {font-size: 16px !important;}
+}
+
+h1 {font-size: 4.210rem !important;}
+
+h2 {font-size: 3.158rem !important;}
+
+h3 {font-size: 2.369rem !important;}
+
+h4 {font-size: 1.777rem !important;}
+
+h5 {font-size: 1.55rem !important;}
+
+h6 {font-size: 1.333rem !important;}
+
+small {font-size: 0.750rem !important;}
+
+a {
+    text-decoration: inherit;
+}
+
+a.Link {
+    position: relative;
+
+    &:hover::after {
+        opacity: 1;
+    }
+
+    &::after {
+        opacity: 0;
+        transition: 0.5s opacity ease;
+        border-radius: 50px;
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        transform: scale(0.9) translateZ(0);
+        filter: blur(30px);
+        background: linear-gradient(to left, 
+          #900100, #A40200, #B80300, #CC0400, #E00500, 
+          #F40600, #F40F0A, #F40600, #E00500, #CC0400, 
+          #B80300, #A40200, #900100
+        );
+        
+        background-size: 200% 200%;
+        animation: animateGlow 1.5s linear infinite;
+    }
+}
+
+@keyframes animateGlow {
+    0% {
+        background-position: 0 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
+}
