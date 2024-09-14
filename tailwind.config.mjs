@@ -16,7 +16,19 @@ export default {
 				'secondary': 'var(--secondary)',
 				'accent': 'var(--accent)',
 			   },
-    	}
+    	},
+		screens: {
+			sm: "640px",
+			md: "768px",
+			lg: "1024px",
+			xl: "1280px",
+			"2xl": "1536px",
+			"2xl-max": { max: "1535px" },
+			"xl-max": { max: "1279px" },
+			"lg-max": { max: "1023px" },
+			"md-max": { max: "767px" },
+			"sm-max": { max: "639px" },
+		},
     },
 	plugins: [require("tailwindcss-animate")],
 }

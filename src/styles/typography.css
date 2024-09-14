@@ -1,12 +1,12 @@
 @import url(./fonts.css);
 
 body {
-    font-family: 'Courier Prime';
+    font-family: 'Young Serif';
     font-weight: 500;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'MS Mincho';
+    font-family: 'Young Serif';
     font-weight: 700;
 }
 
@@ -32,6 +32,12 @@ small {font-size: 0.750rem !important;}
 
 a {
     text-decoration: inherit;
+}
+
+a.Overlink {
+    height: 100%;
+    position: absolute;
+    width: 100%;
 }
 
 a.Link {
