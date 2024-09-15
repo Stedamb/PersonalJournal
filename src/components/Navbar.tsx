@@ -1,4 +1,4 @@
-import DarkModeToggle from "@/components/ui/DarkModeToggle"
+import DarkModeToggle from "@/components/ui/darkModeToggle"
 
 const Navbar = () => {
   return (

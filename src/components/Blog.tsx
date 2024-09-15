@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import RevealAnimation from './ui/animations/animations';
 
-const Homepage = () => {
+const Blog = () => {
   const [currentDate, setCurrentDate] =
     useState(new Date());
 
@@ -26,7 +26,7 @@ const Homepage = () => {
     <div className="container-xl flex flex-col md:flex-row-reverse">
       <div className="flex w-full pt-4 pb-8">
         <img className="RevealAnimationDelay hidden md:flex" src="/main.svg" />
-        <img className="RevealAnimationDelay md:hidden" src="/mobile.svg" />
+        <img className="RevealAnimation md:hidden" src="/mobile.svg" />
       </div>
       <div className="flex flex-col justify-center gap-4 w-full md:pr-12">
         <h4 className="RevealAnimation md:text-2xl">{currentDate.toLocaleDateString('it-IT', options)}</h4>
@@ -36,10 +36,9 @@ const Homepage = () => {
           <h2 className="RevealAnimation absolute -bottom-4 -right-2">„</h2>
         </div>
         <div className="flex gap-4 w-full rounded-lg">
-          <div className="relative flex flex-col items-center justify-end w-full bg-secondary rounded-lg p-8">
+          <div className="flex flex-col items-center justify-end w-full bg-secondary rounded-lg p-8">
             <img className="RevealAnimation -mt-12 mb-4" src="/book.svg" height="400" />
             <p className="RevealAnimation md:text-xl">Esplora</p>
-            <a className="Overlink" href="/blog"></a>
           </div>
           <div className="relative flex flex-col items-center justify-end w-full bg-secondary rounded-lg p-8">
             <img className="RevealAnimation -mt-12 mb-4" src="/pc.svg" height="400" />
@@ -52,4 +51,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Blog;
