@@ -24,7 +24,7 @@ const RevealAnimation = (
       {
         opacity: 1,
         y: 0,
-        duration: options.duration ?? 2,
+        duration: options.duration ?? 1,
         ease: options.ease ?? 'power3.out',
         repeat: options.repeat ?? 0,
         yoyo: options.yoyo ?? false,

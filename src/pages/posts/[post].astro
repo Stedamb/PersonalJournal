@@ -1,0 +1,61 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { supabase } from "@/db/supabase";
+
+export async function getStaticPaths() {
+  console.log("Fetched posts"); // Add this line
+  const { data: posts, error } = await supabase
+    .from("posts")
+    .select("*");
+
+  if (error || !posts) {
+    console.error("Error fetching post slugs:", error);
+    return [];
+  }
+
+  return posts.map((post) => ({
+    params: { post: post.slug },
+  }));
+}
+
+export async function getStaticProps({ params }: { params: { post: string } }) {
+  console.log("getStaticProps called with params:", params);
+  const { data: post, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("slug", params.post)
+    .single();
+  
+  console.log("Fetched post:", post);
+  
+  if (error || !post) {
+    console.error("Error fetching post:", error);
+    return {
+      props: { post: null },
+    };
+  }
+  
+  return {
+    props: { post },
+  };
+}
+
+
+const { post }: { post: Post | null } = Astro.props; // Handle null case
+---
+
+<Layout title={post?.title ?? "Post not found"}>
+  <main>
+    {post ? (
+      <>
+        <h1>{post.title}</h1>
+        <p>{new Date(post.date).toLocaleDateString()}</p>
+        <article>
+          {post.content}
+        </article>
+      </>
+    ) : (
+      <p class="flex justify-center">Sorry, this post could not be found.</p>
+    )}
+  </main>
+</Layout>
