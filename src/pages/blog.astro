@@ -1,9 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '@/layouts/Layout.astro';
+import List from '@/components/List';
 ---
 
 <Layout title="Personal Journal">
 		<main>
-			<Blog client:visible />
+			<List client:visible />
 		</main>
 </Layout>
