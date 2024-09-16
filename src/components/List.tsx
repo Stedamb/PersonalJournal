@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "@/db/supabase";
 import Post from "./Post";
 import RevealAnimation from "./ui/animations/animations";
+import { getDayName } from "@/utils/dateUtils";
 
 function List() {
   const [blogPosts, setBlogPosts] = useState<Post[]>([]);
@@ -22,12 +23,6 @@ function List() {
 
     fetchPosts();
   }, []);
-
-  const getDayName = (dateString: string) => {
-    const date = new Date(dateString);
-    const days = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
-    return days[date.getDay()];
-  };
 
   RevealAnimation("RevealAnimation");
 
