@@ -1,12 +1,11 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { supabase } from "@/db/supabase";
+import PostPage from "@/components/PostPage";
 
 export async function getStaticPaths() {
-  console.log("Fetched posts"); // Add this line
-  const { data: posts, error } = await supabase
-    .from("posts")
-    .select("*");
+  const { data: posts, error } = await supabase.from("posts").select("*");
+  console.log(posts);
 
   if (error || !posts) {
     console.error("Error fetching post slugs:", error);
@@ -18,44 +17,11 @@ export async function getStaticPaths() {
   }));
 }
 
-export async function getStaticProps({ params }: { params: { post: string } }) {
-  console.log("getStaticProps called with params:", params);
-  const { data: post, error } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("slug", params.post)
-    .single();
-  
-  console.log("Fetched post:", post);
-  
-  if (error || !post) {
-    console.error("Error fetching post:", error);
-    return {
-      props: { post: null },
-    };
-  }
-  
-  return {
-    props: { post },
-  };
-}
-
-
-const { post }: { post: Post | null } = Astro.props; // Handle null case
+const { post } = Astro.params;
 ---
 
-<Layout title={post?.title ?? "Post not found"}>
+<Layout title={post}>
   <main>
-    {post ? (
-      <>
-        <h1>{post.title}</h1>
-        <p>{new Date(post.date).toLocaleDateString()}</p>
-        <article>
-          {post.content}
-        </article>
-      </>
-    ) : (
-      <p class="flex justify-center">Sorry, this post could not be found.</p>
-    )}
+    <PostPage slug={post} client:load />
   </main>
 </Layout>
