@@ -17,3 +17,9 @@ export const getDayName = (dateString: string) => {
     const days = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
     return days[date.getDay()];
 };
+
+export const dateOptions = {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  } as const;

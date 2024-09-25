@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import RevealAnimation from './ui/animations/animations';
+import { dateOptions } from '@/utils/dateUtils';
 
 const Homepage = () => {
   const [currentDate, setCurrentDate] =
@@ -13,12 +14,6 @@ const Homepage = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const options = {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-  } as const;
-
   RevealAnimation('RevealAnimation');
   RevealAnimation('RevealAnimationDelay', { delay: 1 });
 
@@ -29,7 +24,7 @@ const Homepage = () => {
         <img className="RevealAnimation md:hidden" src="/mobile.svg" />
       </div>
       <div className="flex flex-col justify-center gap-4 w-full md:pr-12">
-        <h4 className="RevealAnimation md:!text-5xl md:pb-4">{currentDate.toLocaleDateString('it-IT', options)}</h4>
+        <h4 className="RevealAnimation md:!text-5xl md:pb-4">{currentDate.toLocaleDateString('it-IT', dateOptions)}</h4>
         <div className="relative flex w-full bg-secondary rounded-lg p-8">
           <h2 className="RevealAnimation absolute -top-4 -left-2">“</h2>
           <p className="RevealAnimation md:text-xl">La vita è come un’eco: se non ti piace quello che ti rimanda, devi cambiare il messaggio che invii.</p>

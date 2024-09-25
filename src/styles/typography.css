@@ -2,12 +2,7 @@
 
 body {
     font-family: 'Young Serif';
-    font-weight: 500;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Young Serif';
-    font-weight: 700;
+    font-weight: 400;
 }
 
 html {font-size: 14px !important;}
@@ -40,44 +35,34 @@ a.Overlink {
     width: 100%;
 }
 
-a.Link {
-    position: relative;
+.FormattedText {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 500;
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-style: italic;
+        font-weight: 600;
 
-    &:hover::after {
-        opacity: 1;
+        margin-bottom: 1rem;
+    }
+    
+    a {
+        font-style: italic;
+        font-weight: 500;
+        text-decoration: underline;
     }
 
-    &::after {
-        opacity: 0;
-        transition: 0.5s opacity ease;
-        border-radius: 50px;
-        position: absolute;
-        content: "";
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: -1;
-        height: 100%;
-        width: 100%;
-        transform: scale(0.9) translateZ(0);
-        filter: blur(30px);
-        background: linear-gradient(to left, 
-          #900100, #A40200, #B80300, #CC0400, #E00500, 
-          #F40600, #F40F0A, #F40600, #E00500, #CC0400, 
-          #B80300, #A40200, #900100
-        );
-        
-        background-size: 200% 200%;
-        animation: animateGlow 1.5s linear infinite;
-    }
-}
-
-@keyframes animateGlow {
-    0% {
-        background-position: 0 50%;
+    a:hover {
+        color: (--var-accent);
     }
 
-    100% {
-        background-position: 200% 50%;
+    ol, ul {
+        list-style: inside;
     }
+
+    hr {
+        height: .5rem;
+        border-top: 0;
+    }
+
 }

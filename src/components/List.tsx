@@ -24,8 +24,6 @@ function List() {
     fetchPosts();
   }, []);
 
-  RevealAnimation("RevealAnimation");
-
   return (
     <div className="container-sm">
       <img className="" src="/blog.svg" alt="Blog" />
@@ -33,10 +31,11 @@ function List() {
         <h3 className="flex justify-center">caricamento...</h3>
       ) : (
         <ul>
-          {blogPosts.map((post) => (
+          {blogPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post) => (
             <Post key={post.id} post={post} getDayName={getDayName} />
           ))}
         </ul>
+
       )}
     </div>
   );

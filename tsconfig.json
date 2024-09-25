@@ -3,6 +3,8 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
+    "module": "ESNext",
+    "target": "ESNext", 
     "baseUrl": ".",
     "paths": {
       "@/*": [
