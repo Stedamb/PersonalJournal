@@ -20,8 +20,8 @@ const Homepage = () => {
   return (
     <div className="container-xl flex flex-col md:flex-row-reverse">
       <div className="flex w-full pt-4 pb-8">
-        <img className="RevealAnimationDelay hidden md:flex" src="/main.svg" />
-        <img className="RevealAnimation md:hidden" src="/mobile.svg" />
+        <img className="RevealAnimationDelay hidden md:flex" src="/assets/main.svg" />
+        <img className="RevealAnimation md:hidden mx-auto" src="/assets/mobile.svg" />
       </div>
       <div className="flex flex-col justify-center gap-4 w-full md:pr-12">
         <h4 className="RevealAnimation md:!text-5xl md:pb-4">{currentDate.toLocaleDateString('it-IT', dateOptions)}</h4>
@@ -32,12 +32,12 @@ const Homepage = () => {
         </div>
         <div className="flex gap-4 w-full rounded-lg">
           <div className="relative flex flex-col items-center justify-end w-full bg-secondary rounded-lg p-8">
-            <img className="RevealAnimation -mt-12 mb-4" src="/book.svg" height="400" />
+            <img className="RevealAnimation -mt-12 mb-4" src="/assets/book.svg" height="400" />
             <p className="RevealAnimation md:text-xl">Esplora</p>
             <a className="Overlink" href="/blog"></a>
           </div>
           <div className="relative flex flex-col items-center justify-end w-full bg-secondary rounded-lg p-8">
-            <img className="RevealAnimation -mt-12 mb-4" src="/pc.svg" height="400" />
+            <img className="RevealAnimation -mt-12 mb-4" src="/assets/pc.svg" height="400" />
             <p className="RevealAnimation md:text-xl">Video</p>
             <a className="Overlink" href="https://videomaker-psi.vercel.app/"></a>
           </div>

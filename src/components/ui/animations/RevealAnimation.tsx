@@ -1,5 +1,4 @@
 import { gsap } from 'gsap';
-import type { AnimationOptions } from './index';
 import { useEffect } from 'react';
 
 const RevealAnimation = (

@@ -26,7 +26,7 @@ function List() {
 
   return (
     <div className="container-sm">
-      <img className="" src="/blog.svg" alt="Blog" />
+      <img className="" src="/assets/blog.svg" alt="Blog" />
       {isLoading ? (
         <h3 className="flex justify-center">caricamento...</h3>
       ) : (

@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { supabase } from "@/db/supabase";
 import RevealAnimation from "./ui/animations/animations";
-import { getDate } from "@/utils/dateUtils";
-import { ArrowLeft } from "lucide-react";
 import PostDetails from "./PostDetails";
 
-function PostPage({ slug }: { slug: string }) {
+interface PostPageProps {
+  slug: string;
+  children?: ReactNode; // Add the children prop with the type ReactNode
+}
+
+function PostPage({ slug, children }: PostPageProps) {
   const [post, setPost] = useState<Post | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -26,7 +29,6 @@ function PostPage({ slug }: { slug: string }) {
 
       setIsLoading(false);
       RevealAnimation("RevealAnimation");
-
     };
 
     fetchPosts();
@@ -37,11 +39,10 @@ function PostPage({ slug }: { slug: string }) {
       {isLoading ? (
         <h3 className="flex justify-center">caricamento...</h3>
       ) : (
-
         <div className="">
+          {children && <div>{children}</div>}
           {post && <PostDetails post={post} />}
         </div>
-
       )}
     </div>
   );
