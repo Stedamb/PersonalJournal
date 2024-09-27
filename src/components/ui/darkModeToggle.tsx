@@ -4,29 +4,28 @@ import { Switch } from './switch';
 import Cookies from 'js-cookie';
 
 export default function DarkModeToggle() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  useEffect(() => {
-    const isDarkModeFromCookie = Cookies.get('darkMode') === 'true';
-    if (isDarkModeFromCookie) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark'); // Ensure light mode initially
-    }
-    // Cleanup function to remove event listener
-    return () => {
-      // You might need to remove any event listeners added here if necessary
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const isDarkModeFromCookie = Cookies.get('darkMode'); 
+        if (isDarkModeFromCookie === 'true') {
+          setIsDarkMode(true);
+          document.documentElement.classList.add('dark');
+        } else if (isDarkModeFromCookie === 'false') {
+          setIsDarkMode(false);
+          document.documentElement.classList.remove('dark');
+        } else {
+          const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          setIsDarkMode(isSystemDark);
+          document.documentElement.classList.toggle('dark', isSystemDark); 
+        }
+    }, []);
+
+    const handleDarkModeToggle = () => {
+        setIsDarkMode(!isDarkMode);
+        Cookies.set('darkMode', String(!isDarkMode), { expires: 365 });
+        document.documentElement.classList.toggle('dark', !isDarkMode);
     };
-  }, []); // Empty dependency array to run only once
-  const handleDarkModeToggle = () => {
-    setIsDarkMode(!isDarkMode);
-    Cookies.set('darkMode', String(!isDarkMode), { expires: 365 });
-    if (!isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
 
     return (
         <div>
@@ -43,7 +42,7 @@ export default function DarkModeToggle() {
                 <Switch
                     id="dark-mode"
                     onCheckedChange={handleDarkModeToggle}
-                    checked={isDarkMode}    
+                    checked={isDarkMode}
                 />
                 <Moon className="h-6 w-6 text-text" />
                 <span className="sr-only">Toggle dark mode</span>
