@@ -15,7 +15,9 @@
     --text: #0f0e01;
     --background: #f8f8f8;
     --primary: #eee214;
+    --primary-hover: #fff200;
     --secondary: #ededed;
+    --secondary-hover: #cccccc;
     --accent: #52f2dc;    
     --radius: 0.5rem
   }
@@ -23,7 +25,9 @@
     --text: #f8f8f8;
     --background: #0b0b0b;
     --primary: #3a31d8;
+    --primary-hover: #3933b1;
     --secondary: #1a1a1a;
+    --secondary-hover: #343434;
     --accent: #0600c2;
   }
 }

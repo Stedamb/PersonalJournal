@@ -16,3 +16,7 @@ interface Post {
   content: string;
 }
 
+interface PostPageProps {
+  post: Post;
+  children?: ReactNode;
+}

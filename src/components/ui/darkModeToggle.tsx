@@ -1,21 +1,27 @@
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Switch } from "./switch";
+import Cookies from 'js-cookie';
 
-export default function DarkModeToggle
-    () {
+export default function DarkModeToggle() {
     const [isDarkMode, setIsDarkMode] = useState(false);
+    useEffect(() => {
+      const isDarkModeFromCookie = Cookies.get('darkMode') === 'true';
+      if (isDarkModeFromCookie) {
+        setIsDarkMode(true);
+        document.documentElement.classList.add('dark');
+      }
+    }, []);
 
     const handleDarkModeToggle = () => {
         setIsDarkMode(!isDarkMode);
+        Cookies.set('darkMode', String(!isDarkMode), { expires: 365 }); 
         if (!isDarkMode) {
-            document.documentElement.classList.add("dark");
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
         }
-        else {
-            document.documentElement.classList.remove("dark");
-        }
-    };
+      };
 
     return (
         <div>

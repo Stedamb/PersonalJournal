@@ -34,9 +34,9 @@ if (imageKey) {
 
 <Layout title={post.title}> 
   <main>
-    <PostPage slug={post.slug} client:load>
+    <PostPage post={post}>
       {image && (
-        <Image src={image} alt={post.title} />
+        <Image src={image} alt={post.title} class="h-full object-cover" />
       )}
     </PostPage>
   </main>
