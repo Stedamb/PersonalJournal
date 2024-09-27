@@ -1,17 +1,21 @@
 ---
-import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
-import '@/styles/globals.css'
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import "@/styles/globals.css";
 
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+
+const cookies = Astro.request.headers.get("cookie") || "";
+const darkMode = cookies.includes("darkMode=true");
+const htmlClass = darkMode ? "dark" : "";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class={htmlClass}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
