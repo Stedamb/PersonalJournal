@@ -24,6 +24,8 @@ export default function DarkModeToggle() {
     const handleDarkModeToggle = () => {
         setIsDarkMode(!isDarkMode);
         Cookies.set('darkMode', String(!isDarkMode), { expires: 365 });
+        document.body.classList.add('duration-300');
+        document.body.classList.add('transition-colors');
         document.documentElement.classList.toggle('dark', !isDarkMode);
     };
 

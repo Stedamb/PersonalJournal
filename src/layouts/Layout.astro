@@ -2,6 +2,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import "@/styles/globals.css";
+import { ViewTransitions } from "astro:transitions";
 
 interface Props {
 	title: string;
@@ -23,6 +24,7 @@ const htmlClass = darkMode ? "dark" : "";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ViewTransitions />
 	</head>
 	<body>
 		<nav>
