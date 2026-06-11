@@ -1,10 +1,39 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import List from '@/components/List';
+import { getCollection } from 'astro:content';
+import { getDayName } from '@/utils/dateUtils';
+
+const posts = await getCollection("posts");
+const sortedPosts = posts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 ---
 
 <Layout title="Personal Journal">
-		<main>
-			<List client:visible />
-		</main>
+  <main class="container-sm">
+    <img src="/assets/blog.svg" alt="Blog" />
+    <ul>
+      {sortedPosts.map((post) => (
+        <li>
+          <div class="flex flex-col gap-2 mb-8">
+            <div class="flex justify-between items-baseline">
+              <h6>{post.data.title}</h6>
+              <p>{getDayName(post.data.date)}</p>
+            </div>
+            <div class="flex flex-col px-8 py-6 bg-secondary rounded-xl">
+              <p class="FormattedText">
+                {post.data.description || post.body?.substring(0, 90).concat("...")}
+              </p>
+              <a
+                href={`/posts/${post.id}`}
+                class="mt-4 ml-auto inline-flex items-center gap-2 px-6 py-2 bg-primary text-text rounded-xl hover:bg-primary-hover transition-colors"
+              >
+                Leggi →
+              </a>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </main>
 </Layout>

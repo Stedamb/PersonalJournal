@@ -1,0 +1,86 @@
+---
+---
+
+<!-- Mobile: icon click -->
+<div
+  id="dm-mobile"
+  class="md:hidden flex items-center cursor-pointer space-x-2"
+>
+  <span id="dm-icon-mobile">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-text dm-sun-mobile"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-text dm-moon-mobile hidden"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+  </span>
+  <span class="sr-only">Toggle dark mode</span>
+</div>
+
+<!-- Desktop: switch -->
+<div class="hidden md:flex items-center space-x-2">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-text/80 dm-sun-desktop"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+  <button
+    id="dm-switch"
+    type="button"
+    role="switch"
+    aria-checked="false"
+    data-state="unchecked"
+    class="peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-neutral-900 data-[state=unchecked]:bg-neutral-200 dark:focus-visible:ring-neutral-300 dark:focus-visible:ring-offset-neutral-950 dark:data-[state=checked]:bg-neutral-50 dark:data-[state=unchecked]:bg-neutral-800"
+  >
+    <span
+      data-state="unchecked"
+      class="pointer-events-none block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0 dark:bg-neutral-950"
+    ></span>
+  </button>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-text/80 dm-moon-desktop"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+  <span class="sr-only">Toggle dark mode</span>
+</div>
+
+<script>
+  function getDarkMode(): boolean {
+    const stored = localStorage.getItem("darkMode");
+    if (stored !== null) return stored === "true";
+    return window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+  }
+
+  function applyDark(dark: boolean) {
+    document.documentElement.classList.toggle("dark", dark);
+
+    const state = dark ? "checked" : "unchecked";
+
+    // Re-query elements (DOM may have changed after navigation)
+    const sw = document.getElementById("dm-switch");
+    const thumb = sw?.querySelector("span");
+
+    if (sw) {
+      sw.setAttribute("aria-checked", String(dark));
+      sw.dataset.state = state;
+    }
+    if (thumb) {
+      thumb.dataset.state = state;
+    }
+
+    // Mobile icon
+    const sunMobile = document.querySelector(".dm-sun-mobile") as HTMLElement | null;
+    const moonMobile = document.querySelector(".dm-moon-mobile") as HTMLElement | null;
+    if (sunMobile) sunMobile.style.display = dark ? "none" : "block";
+    if (moonMobile) moonMobile.style.display = dark ? "block" : "none";
+
+    // Desktop icons opacity
+    const sunDesktop = document.querySelector(".dm-sun-desktop") as HTMLElement | null;
+    const moonDesktop = document.querySelector(".dm-moon-desktop") as HTMLElement | null;
+    if (sunDesktop) sunDesktop.style.opacity = dark ? "1" : "0.4";
+    if (moonDesktop) moonDesktop.style.opacity = dark ? "0.4" : "1";
+  }
+
+  function toggle() {
+    const next = !getDarkMode();
+    localStorage.setItem("darkMode", String(next));
+    applyDark(next);
+  }
+
+  function init() {
+    applyDark(getDarkMode());
+    document.getElementById("dm-mobile")?.addEventListener("click", toggle);
+    document.getElementById("dm-switch")?.addEventListener("click", toggle);
+  }
+
+  document.addEventListener("astro:page-load", init);
+</script>

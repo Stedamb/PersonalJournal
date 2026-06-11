@@ -1,16 +1,44 @@
-@import url(./components/cursor.css);
-@import url(./components/loader.css);
-
 @import url(./index.css);
 @import url(./container.css);
-@import url(./multimedia.css);
 @import url(./typography.css);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-text: var(--text);
+  --color-background: var(--background);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-accent: var(--accent);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
 
 @layer base {
+  .RevealAnimation,
+  .RevealAnimationDelay {
+    opacity: 0;
+  }
+
+  [class*="text-"],
+  [class*="bg-"] {
+    transition-property: color, background-color, border-color, fill, stroke;
+    transition-timing-function: ease;
+    transition-duration: 500ms;
+  }
+
   :root {
     --text: #0f0e01;
     --background: #f8f8f8;

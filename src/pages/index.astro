@@ -1,10 +1,84 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import Homepage from "@/components/Homepage";
+import Layout from "@/layouts/Layout.astro";
+import { dateOptions } from "@/utils/dateUtils";
+
+const dateStr = new Date().toLocaleDateString("it-IT", dateOptions);
 ---
 
 <Layout title="Personal Journal">
-		<main>
-			<Homepage client:visible />
-		</main>
+  <main>
+    <div class="container-xl flex flex-col md:flex-row-reverse">
+      <div class="flex w-full pt-4 pb-8">
+        <img
+          class="RevealAnimationDelay hidden md:flex"
+          src="/assets/main.svg"
+        />
+        <img
+          class="RevealAnimation md:hidden mx-auto"
+          src="/assets/mobile.svg"
+        />
+      </div>
+      <div class="flex flex-col justify-center gap-4 w-full md:pr-12">
+        <h4
+          id="clock"
+          class="RevealAnimation text-2xl md:text-5xl md:pb-4"
+          data-date-options={JSON.stringify(dateOptions)}
+        >
+          {dateStr}
+        </h4>
+        <div class="relative flex w-full bg-secondary rounded-lg p-8">
+          <h2 class="RevealAnimation absolute -top-2 -left-2 text-4xl">“</h2>
+          <p class="RevealAnimation text-lg md:text-xl">
+            La vita è come un'eco: se non ti piace quello che ti rimanda, devi
+            cambiare il messaggio che invii.
+          </p>
+          <h2 class="RevealAnimation absolute -bottom-2 -right-2 text-4xl">
+            „
+          </h2>
+        </div>
+        <div class="flex gap-4 w-full rounded-lg">
+          <div
+            class="relative flex flex-col items-center justify-end w-full bg-secondary rounded-lg p-8"
+          >
+            <img
+              class="RevealAnimation -mt-12 mb-4"
+              src="/assets/book.svg"
+              height="400"
+            />
+            <p class="RevealAnimation md:text-xl">Esplora</p>
+            <a class="Overlink" href="/blog"></a>
+          </div>
+          <div
+            class="relative flex flex-col items-center justify-end w-full bg-secondary rounded-lg p-8"
+          >
+            <img
+              class="RevealAnimation -mt-12 mb-4"
+              src="/assets/pc.svg"
+              height="400"
+            />
+            <p class="RevealAnimation md:text-xl">Video</p>
+            <a class="Overlink" href="https://videomaker-psi.vercel.app/"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </Layout>
+
+<script>
+  let clockInterval: ReturnType<typeof setInterval> | undefined;
+
+  function initClock() {
+    clearInterval(clockInterval);
+    const el = document.getElementById("clock");
+    if (el) {
+      const opts = JSON.parse(el.dataset.dateOptions || "{}");
+      el.textContent = new Date().toLocaleDateString("it-IT", opts);
+      clockInterval = setInterval(() => {
+        el.textContent = new Date().toLocaleDateString("it-IT", opts);
+      }, 1000);
+    }
+  }
+
+  document.addEventListener("astro:page-load", initClock);
+</script>

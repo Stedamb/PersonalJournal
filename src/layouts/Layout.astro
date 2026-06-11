@@ -1,22 +1,18 @@
 ---
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import Footer from "@/components/layout/Footer.astro";
+import Navbar from "@/components/layout/Navbar.astro";
 import "@/styles/globals.css";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
-
-const cookies = Astro.request.headers.get("cookie") || "";
-const darkMode = cookies.includes("darkMode=true");
-const htmlClass = darkMode ? "dark" : "";
 ---
 
 <!doctype html>
-<html lang="en" class={htmlClass}>
+<html lang="it">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
@@ -24,15 +20,37 @@ const htmlClass = darkMode ? "dark" : "";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<ViewTransitions />
+		<script is:inline>
+			(function () {
+				function isDark() {
+					var s = localStorage.getItem("darkMode");
+					if (s !== null) return s === "true";
+					return window.matchMedia("(prefers-color-scheme: dark)").matches;
+				}
+				if (isDark()) document.documentElement.classList.add("dark");
+			})();
+		</script>
+		<ClientRouter />
 	</head>
 	<body>
 		<nav>
-			<Navbar client:visible />
+			<Navbar />
 		</nav>
 		<slot />
 		<footer>
-			<Footer client:visible />
+			<Footer />
 		</footer>
 	</body>
 </html>
+
+<script>
+	import "@/scripts/animations";
+
+	document.addEventListener("astro:before-swap", (event) => {
+		var stored = localStorage.getItem("darkMode");
+		var dark = stored !== null
+			? stored === "true"
+			: window.matchMedia("(prefers-color-scheme: dark)").matches;
+		event.newDocument.documentElement.classList.toggle("dark", dark);
+	});
+</script>
